@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\User;
+use Validator;
 
 class EventController extends Controller
 {
@@ -28,6 +29,14 @@ class EventController extends Controller
 
     public function store(Request $request) {
         $event = new Event;
+
+        $request->validate([
+            'title'=>'required',
+            'date'=>'required',
+            'city'=>'required',
+            'private'=>'required',
+            'description'=>'required',
+        ]);
 
         $event->title = $request->title;
         $event->date = $request->date;
@@ -104,6 +113,14 @@ class EventController extends Controller
     }
 
     public function update(Request $request) {
+        $request->validate([
+            'title'=>'required',
+            'date'=>'required',
+            'city'=>'required',
+            'private'=>'required',
+            'description'=>'required',
+        ]);
+
         $data = $request->all();
 
         if($request->hasFile('image') && $request->file('image')->isValid()){

@@ -6,12 +6,16 @@
     <div class="col-md-10 offset-md-1">
         <div class="row">
             <div id="image-container" class="col-md-6">
-                <img src="/img/event/{{$event->image}}" class="img-fluid" alt="{{$event->title}}">
+                @if($event->image === null)
+                    <img src="/img/image.jpg" class="img-fluid" alt="{{ $event->title }}">
+                @else
+                    <img src="/img/event/{{ $event->image }}" class="img-fluid" alt="{{ $event->title }}">
+                @endif
             </div>
             <div id="info-container" class="col-md-6">
                 <h1> {{$event->title}} </h1>
                 <p class="event-city">
-                    <ion-icon name="location-outline"></ion-icon> {{$event->city}}
+                    <ion-icon name="location-outline"></ion-icon> {{ $event->city }}
                 </p>
                 <p class="events-participants">
                     <ion-icon name="people-outline"></ion-icon> {{ count($event->users) }} Participantes
@@ -36,9 +40,13 @@
                 @endif
                 <h3> O evento conta com: </h3>
                 <ul id="items-list">
-                    @foreach($event->items as $item)
-                        <li> <ion-icon name="play-outline"></ion-icon> <span> {{ $item }} </span> </li>
-                    @endforeach
+                    @if($event->items === null)
+                        <p class="already-joined-msg"> Não especificado. </p>
+                    @else
+                        @foreach($event->items as $item)
+                            <li> <ion-icon name="play-outline"></ion-icon> <span> {{ $item }} </span> </li>
+                        @endforeach
+                    @endif
                 </ul>
             </div>
             <div class="col-md-12" id="description-container">

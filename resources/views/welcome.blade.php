@@ -19,7 +19,11 @@
         <div id="cards-container" class="row">
             @foreach($events as $event)
                 <div class="card col-md-3">
-                    <img src="/img/event/{{ $event -> image }}" alt="{{ $event->title }}">
+                    @if($event->image === null)
+                        <img src="/img/image.jpg" class="img-fluid" alt="{{ $event->title }}">
+                    @else
+                        <img src="/img/event/{{ $event->image }}" class="img-fluid" alt="{{ $event->title }}">
+                    @endif
                     <div class="card-body">
                         <div class="card-date"> {{ date('d/m/y', strtotime($event->date)) }} </div>
                         <h5 class="card-title"> {{ $event->title }} </h5>
